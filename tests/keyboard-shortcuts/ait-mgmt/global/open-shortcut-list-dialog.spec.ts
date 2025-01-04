@@ -1,36 +1,13 @@
 import { expect, test } from "@playwright/test";
-import { Key, pressKeys } from "../shared/keypress";
-import { loginToMedicalPortal } from "../shared/login";
+import { Key, pressKeys } from "@utils/keypress";
+import { loginToMedicalPortal } from "@utils/login";
 import {
   AITManagementPage,
   navigateToAITManagementPage,
-  navigateToAITProduction,
-} from "../shared/navigation";
-import { takeScreenshot } from "../shared/screenshot";
+} from "@utils/navigation";
+import { takeScreenshot } from "@utils/screenshot";
 
 const screenshotLocation = "keyboard-shortcuts/f1-opens-dialog";
-
-test("Opens and closes the Keyboard Shortcut dialog on ait prod", async ({
-  page,
-}) => {
-  await loginToMedicalPortal(page, screenshotLocation);
-
-  await navigateToAITProduction(page, screenshotLocation);
-
-  await pressKeys(page, [Key.F1]);
-
-  const shortcutDialog = page.getByTestId("shortcut-dialog");
-
-  await expect(shortcutDialog).toBeVisible();
-
-  await takeScreenshot(page, `${screenshotLocation}/dialog-visible`);
-
-  await pressKeys(page, [Key.F1]);
-
-  await expect(shortcutDialog).not.toBeVisible();
-
-  await takeScreenshot(page, `${screenshotLocation}/dialog-invisible`);
-});
 
 test("Opens and closes the Keyboard Shortcut dialog on ait-mgmt", async ({
   page,
