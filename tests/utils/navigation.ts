@@ -22,18 +22,27 @@ export const navigateToAITProduction = async (page: any, testName: string) => {
   await takeScreenshot(page, `${testName}/ait-prod-home`);
 };
 
-export const navigateToAITManagementPage = async (
-  page: any,
-  aitManagementPage: { name: string; url: string },
-  testName: string
-) => {
+export const navigateToAITManagementPage = async ({
+  page,
+  aitManagementPage,
+  screenshotFolder,
+}: {
+  page: any;
+  aitManagementPage: { name: string; url: string };
+  screenshotFolder?: string;
+}) => {
   const { name: pageName, url: pageUrl } = aitManagementPage;
 
-  await page.getByText("AIT Management").click();
+  await page.getByText("AIT Management").click(); // TODO use testid
 
   await page.getByText(pageName).click();
 
   await expect(page).toHaveURL(baseUrl + pageUrl);
 
-  await takeScreenshot(page, `${testName}/ait-mgmt-${pageName.toLowerCase()}`);
+  if (screenshotFolder) {
+    await takeScreenshot(
+      page,
+      `${screenshotFolder}/ait-mgmt-${pageName}`.toLowerCase()
+    );
+  }
 };
