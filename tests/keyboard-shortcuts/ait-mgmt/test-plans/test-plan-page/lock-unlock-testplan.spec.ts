@@ -1,24 +1,61 @@
-// clicks the button with data-testid unlock-test-plan-buttton
-
-import test from "@playwright/test";
+import test, { expect } from "@playwright/test";
+import { Key, pressKeys } from "@utils/keypress";
 import { loginToMedicalPortal } from "@utils/login";
 import {
   AITManagementPage,
   navigateToAITManagementPage,
 } from "@utils/navigation";
+import { takeScreenshot } from "@utils/screenshot";
+import { baseUrl } from "@utils/test-setup";
+import { randomInt } from "crypto";
 
 test("Clicking the button with data-testid unlock-test-plan-button unlocks the Test Plan", async ({
   page,
 }) => {
+  const testplanName = "testplan-" + randomInt(1, 100000).toString();
+
   await loginToMedicalPortal({ page });
   await navigateToAITManagementPage({
     page,
     aitManagementPage: AITManagementPage.TestPlans,
   });
 
-  // create dummy test, navigate to test
-  // check if test is released or not
-  // check if user is able or not to lock / unlock test plan
+  // Creates new test plan
+  await pressKeys(page, [Key.Alt, Key.N]);
 
-  await page.click("[data-testid=unlock-test-plan-button]");
+  await page.getByTestId("create-testplan-text-input").fill(testplanName);
+
+  await pressKeys(page, [Key.Enter]);
+
+  await page.waitForURL(baseUrl + "/apps/ait-mgmt/testPlans/*/revisions/*");
+
+  await expect(page.getByTestId("testplan-header-title")).toHaveText(
+    testplanName
+  );
+
+  // New test plan is locked by default
+
+  expect(page.getByTestId("locked-icon")).toBeVisible();
+
+  await takeScreenshot(page, "ait-mgmt-test-plan-locked-pristine");
+
+  // Unlocks the test plan by pressing F9
+
+  await pressKeys(page, [Key.F9]);
+
+  await page.waitForSelector('[data-testid="unlocked-icon"]', {
+    state: "visible",
+  });
+
+  await takeScreenshot(page, "ait-mgmt-test-plan-unlocked");
+
+  // Locks the test plan by pressing F9
+
+  await pressKeys(page, [Key.F9]); // locks the test plan
+
+  await page.waitForSelector('[data-testid="locked-icon"]', {
+    state: "visible",
+  });
+
+  await takeScreenshot(page, "ait-mgmt-test-plan-locked");
 });

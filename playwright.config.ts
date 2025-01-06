@@ -37,20 +37,20 @@ export default defineConfig({
 
   projects: [
     /* Test against branded browsers. */
-    // {
-    //   active: false,
-    //   name: "localchrome",
-    //   use: {
-    //     // Path to your local Chrome executable
-    //     browserName: "chromium",
-    //     channel: "chrome", // This specifies using the Chrome browser
-    //     executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", // Replace with your Chrome path
-    //     headless: false, // Set to false if you want to see the browser
-    //     // Other configurations like viewport, etc.
-    //     viewport: { width: 1280, height: 720 },
-    //   },
-    //   // use: { ...devices["Desktop Chrome"], channel: "chrome" }, // or 'chrome-beta'
-    // },
+    {
+      active: false,
+      name: "localchrome",
+      use: {
+        // Path to your local Chrome executable
+        browserName: "chromium",
+        channel: "chrome", // This specifies using the Chrome browser
+        executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", // Replace with your Chrome path
+        headless: false, // Set to false if you want to see the browser
+        // Other configurations like viewport, etc.
+        viewport: { width: 1280, height: 720 },
+      },
+      // use: { ...devices["Desktop Chrome"], channel: "chrome" }, // or 'chrome-beta'
+    },
 
     {
       name: "chromium",
