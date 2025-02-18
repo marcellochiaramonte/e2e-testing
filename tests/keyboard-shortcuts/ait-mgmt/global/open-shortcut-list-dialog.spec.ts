@@ -12,7 +12,7 @@ const screenshotLocation = "keyboard-shortcuts/f1-opens-dialog";
 test("Opens and closes the Keyboard Shortcut dialog on ait-mgmt", async ({
   page,
 }) => {
-  await loginToMedicalPortal({ page, screenshotFolder: screenshotLocation });
+  await loginToMedicalPortal({ page });
 
   await navigateToAITManagementPage({
     page,

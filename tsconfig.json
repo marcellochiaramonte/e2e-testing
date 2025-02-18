@@ -1,5 +1,12 @@
 {
     "compilerOptions": {
+        "strict": true, // Enables all strict type-checking options
+        "noImplicitAny": true, // Disallow implicit 'any' types
+        "strictNullChecks": true, // Ensure values are not null/undefined unless specified
+        "strictPropertyInitialization": true, // Enforce property initialization
+        "noUncheckedIndexedAccess": true, // Prevent accessing possibly undefined object properties
+        "forceConsistentCasingInFileNames": true, // Prevent inconsistent casing issues
+        "esModuleInterop": true,
         "baseUrl": ".",
         "paths": {
             "@utils/*": [

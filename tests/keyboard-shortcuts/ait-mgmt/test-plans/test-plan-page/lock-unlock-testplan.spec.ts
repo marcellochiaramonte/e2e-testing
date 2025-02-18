@@ -6,12 +6,10 @@ import {
   navigateToAITManagementPage,
 } from "@utils/navigation";
 import { takeScreenshot } from "@utils/screenshot";
-import { baseUrl } from "@utils/test-setup";
 import { randomInt } from "crypto";
+import { config } from "tests/config";
 
-test("Clicking the button with data-testid unlock-test-plan-button unlocks the Test Plan", async ({
-  page,
-}) => {
+test("Pressing F9 unlocks the Test Plan", async ({ page }) => {
   const testplanName = "testplan-" + randomInt(1, 100000).toString();
 
   await loginToMedicalPortal({ page });
@@ -27,7 +25,9 @@ test("Clicking the button with data-testid unlock-test-plan-button unlocks the T
 
   await pressKeys(page, [Key.Enter]);
 
-  await page.waitForURL(baseUrl + "/apps/ait-mgmt/testPlans/*/revisions/*");
+  await page.waitForURL(
+    config.baseUrl + "/apps/ait-mgmt/testPlans/*/revisions/*"
+  );
 
   await expect(page.getByTestId("testplan-header-title")).toHaveText(
     testplanName

@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
+import { config } from "tests/config";
 import { takeScreenshot } from "./screenshot";
-import { baseUrl } from "./test-setup";
 
 export const AITManagementPage = {
   // Dashboard: {
@@ -14,10 +14,23 @@ export const AITManagementPage = {
   },
 };
 
+export const portalPages = {
+  AIT_Management: {
+    TestPlans: {
+      name: "Test Plans",
+      url: "/apps/ait-mgmt/testPlans",
+    },
+    Products: {
+      name: "Products",
+      url: "/apps/ait-mgmt/products",
+    },
+  },
+};
+
 export const navigateToAITProduction = async (page: any, testName: string) => {
   await page.getByText("AIT Production").click();
 
-  await expect(page).toHaveURL(baseUrl + "/apps/ait-prod/load-form");
+  await expect(page).toHaveURL(config.baseUrl + "/apps/ait-prod/load-form");
 
   await takeScreenshot(page, `${testName}/ait-prod-home`);
 };
@@ -37,7 +50,7 @@ export const navigateToAITManagementPage = async ({
 
   await page.getByText(pageName).click();
 
-  await expect(page).toHaveURL(baseUrl + pageUrl);
+  await expect(page).toHaveURL(config.baseUrl + pageUrl);
 
   if (screenshotFolder) {
     await takeScreenshot(
