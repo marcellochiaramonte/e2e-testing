@@ -51,14 +51,14 @@ export default defineConfig({
     //   // use: { ...devices["Desktop Chrome"], channel: "chrome" }, // or 'chrome-beta'
     // },
 
-    {
-      name: "Microsoft Edge",
-      use: {
-        ...devices["Desktop Edge"],
-        channel: "msedge",
-        viewport: { width: 1280, height: 720 },
-      }, // or 'msedge-dev'
-    },
+    // {
+    //   name: "Microsoft Edge",
+    //   use: {
+    //     ...devices["Desktop Edge"],
+    //     channel: "msedge",
+    //     viewport: { width: 1280, height: 720 },
+    //   }, // or 'msedge-dev'
+    // },
 
     {
       name: "chromium",

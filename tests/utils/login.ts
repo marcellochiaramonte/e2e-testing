@@ -1,7 +1,7 @@
-import { expect } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { config } from "../config";
 
-export const loginToMedicalPortal = async ({ page }: { page: any }) => {
+export const loginToMedicalPortal = async ({ page }: { page: Page }) => {
   await page.goto(config.baseUrl);
 
   await page.waitForNavigation({ waitUntil: "networkidle" });
